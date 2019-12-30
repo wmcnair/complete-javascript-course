@@ -1,17 +1,14 @@
 /*
 GAME RULES:
-
 - The game has 2 players, playing in rounds
 - In each turn, a player rolls a dice as many times as he whishes. Each result get added to his ROUND score
 - BUT, if the player rolls a 1, all his ROUND score gets lost. After that, it's the next player's turn
 - The player can choose to 'Hold', which means that his ROUND score gets added to his GLBAL score. After that, it's the next player's turn
 - The first player to reach 100 points on GLOBAL score wins the game
-
 */
 
 /* function btn(){//do something here}
 btn(); //to call a function
-
 document.querySelector('.btn-roll').addEventListener('click', btn); //eventListener calls the function */
 
 // declaring variables
@@ -85,6 +82,7 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
             document.querySelector('.dice2').style.display = 'none';
             document.querySelector(`.player-${activePlayer}-panel`).classList.add('winner');
             document.querySelector(`.player-${activePlayer}-panel`).classList.remove('active');
+            highScoreList();//2.0 CUSTOM
             gamePlaying = false; //Game is NOT playing
         } else {
             //Next Player
@@ -93,6 +91,19 @@ document.querySelector('.btn-hold').addEventListener('click', function(){
     }
 
 });
+
+// 2.0 CUSTOM
+function highScoreList(){ 
+    //Store Winner Scores
+    if (typeof(Storage) !== 'undefined'){
+        sessionStorage.topScore = scores[activePlayer];
+        let top_Scor = [];
+        top_Scor.push(sessionStorage.topScore);
+        document.querySelector('#highScores').innerHTML = `Top scores: ${top_Scor}`;
+    } else {
+        document.querySelector('#highScores').innerHTML = 'Sorry, your browser does not support web storage...';
+    }
+}
 
 function nextPlayer(){
     //Next Player
@@ -109,7 +120,20 @@ function nextPlayer(){
     document.querySelector('.dice2').style.display = 'none';
 }
 
+document.querySelector('.gameWS').addEventListener('click', highScores);
+document.querySelector('.gameRules').addEventListener('click', gameRules);
 document.querySelector('.btn-new').addEventListener('click', init);
+
+function highScores(){
+    let h_Scores = document.getElementById('highScores');
+    // document.getElementById('highScores').style.display = 'block';
+    alert(h_Scores.innerHTML);
+}
+function gameRules(){
+    let g_Rules = document.getElementById('gameRules');
+    // document.getElementById('gameRules').style.display = 'block';
+    alert(g_Rules.innerHTML);
+}
 
 function init(){
     //players scorces
@@ -160,7 +184,6 @@ if(activePlayer === 0){
 /*-----------------------------------------------------------------------------
 YOUR 3 CHALLENGES
 Change the game to follow these rules:
-
 1. A player looses his ENTIRE score when he rolls two 6 in a row. After that, it's the next player's turn.
 (Hint: Always save the previous dice roll in a separate variable)
 2. Add an input field to the HTML where players can set the winnning score, so that they can change the

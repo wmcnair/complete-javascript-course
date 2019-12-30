@@ -51,18 +51,18 @@ body {
 *** PLAYERS
 **********************************************/
 
-.player-name {
+.player-name { 
     font-size: 40px;
     text-align: center;
     text-transform: uppercase;
     letter-spacing: 2px;
     font-weight: 100;
-    margin-top: 20px;
+    margin-top: 40px;
     margin-bottom: 10px;
     position: relative;
 }
 
-.player-score {
+.player-score { 
     text-align: center;
     font-size: 80px;
     font-weight: 100;
@@ -83,7 +83,7 @@ body {
     
 }
 
-.player-current-box {
+.player-current-box { 
     background-color: #EB4D4D;
     color: #fff;
     width: 40%;
@@ -92,18 +92,18 @@ body {
     text-align: center;
 }
 
-.player-current-label {
+.player-current-label { 
     text-transform: uppercase;
     margin-bottom: 10px;
     font-size: 12px;
     color: #222;
 }
 
-.player-current-score {
-    font-size: 30px;
+.player-current-score { 
+    font-size: 30px; 
 }
 
-button {
+button { 
     position: absolute;
     width: 200px;
     left: 50%;
@@ -137,7 +137,7 @@ i {
     transition: margin 0.3s;
 }
 
-.btn-new { top: 60px;}
+.btn-new {position: relative;}
 .btn-roll { top: 403px;}
 .btn-hold { top: 467px;}
 
@@ -163,13 +163,49 @@ i {
 .winner .player-name { font-weight: 300; color: #EB4D4D; }
 
 .winScoreBox{
+    width:100%;
+    padding:20px 50px 0 50px;
     position: absolute;
     top:15px;
     left: 50%;
     transform: translateX(-50%);
+    display: -webkit-flex; /* Safari */
+    -webkit-justify-content: center; /* Safari 6.1+ */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .winScoreBox #winScore{
-    width:40px;padding:5px;
-    color:#555;
+    /* width:40px;padding:5px;
+    color:#555;border:1px solid #555;
+    font-family: 'Lato'; */
+    color: #555;
+    font-size: 18px;
     font-family: 'Lato';
+    text-align: center;
+    padding: 10px;
+    width: 160px;
+    text-transform: uppercase;
+}
+.winScoreBox #winScore:focus{outline: none;}
+
+/* 2.0 CUSTOM */
+.winScoreBox span,
+.winScoreBox .gameWS, 
+.winScoreBox .gameRules{
+    text-align:center;
+    padding:15px;
+    font-family: Lato;
+    font-weight: 600;
+    text-decoration: none;
+    color:#555;
+}
+.winScoreBox .gameWS:hover, 
+.winScoreBox .gameRules:hover{
+    color:#EB4D4D;
+}
+
+#highScores,
+#gameRules{
+    display:none;
 }
