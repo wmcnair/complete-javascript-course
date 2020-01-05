@@ -113,7 +113,7 @@ console.log(age, obj3.city);
 // Notice the Primitive(age) is unchanged
 
 
-/* Lecture: Passing functions as arguments
+/* Lecture: Passing functions as arguments (ref:line:277)
 ----------------------------------------------------- */
 /* Functions
  * A function is an instance of the Object type
@@ -237,4 +237,71 @@ interviewQuestionChallenge('teacher')('Becky');
 
 
 /* Lecture: Bind, Call and Apply
+----------------------------------------------------- */
+let speakerJohn = {
+    name:'John',
+    age:26,
+    job:'teacher',
+    presentation: function(style,timeOfDay){
+        if (style === 'formal'){
+            console.log(`Good ${timeOfDay}, Ladies and Gentlemen! I'm ${this.name}, and I'm a ${this.age} year old ${this.job}.`);
+        } else if (style === 'casual'){
+            console.log(`Hey! What's up everyone? I'm ${this.name}, and I'm a ${this.age} year old ${this.job}. Good ${timeOfDay}! :)`);
+        }
+    }
+}
+
+let speakerEmily = {
+    name:'Emily',
+    age:35,
+    job:'designer',
+};
+
+speakerJohn.presentation('formal','morning');
+
+/* CALL Method: allows use to set the THIS variable as the 1st argument */
+speakerJohn.presentation.call(speakerEmily,'formal','afternoon');// Method borrowing (Borrowed from John for Emily)
+
+/* APPLY Method: accepts the arguments as an array */
+speakerJohn.presentation.apply(speakerEmily,['casual','afternoon']);// Won't works because the function is not expecting an array
+
+/* BIND Method: similar to the call method, but doesn't immediately call the function. Instead it generates a copy of the function, so that we can store it. This is useful for create functions with preset arguments.*/
+let johnCasual = speakerJohn.presentation.bind(speakerJohn,'casual');
+johnCasual('afternoon');
+johnCasual('evening');
+
+let emilyFormal = speakerJohn.presentation.bind(speakerEmily,'formal');
+emilyFormal('morning');
+//this is call carrying
+
+/* BIND Method Challenge (ref:line:116) */
+var years_Challenge = [1990,1965,1937,2005,1998];
+
+function arrayCalc_Challenge(arr, fn){
+    var arrRes = [];
+    for (var i = 0; i < arr.length; i++){
+        arrRes.push(fn(arr[i]));
+    }
+    return arrRes;
+}
+
+function calcAge_Challenge(el){
+    return 2016 - el;
+}
+
+function isFullAge_Challenge(limit, el){ //Challenge Edit
+    return el >= limit;
+}
+
+let ages_Challenge = arrayCalc_Challenge(years_Challenge,calcAge_Challenge);
+
+let fullJapan = arrayCalc_Challenge(ages_Challenge,isFullAge_Challenge.bind(this,20));
+
+console.log(ages_Challenge);
+console.log(fullJapan);
+
+
+/*--------------------------------
+Coding Challenge 7
+Build a fun quiz game in the console
 ----------------------------------------------------- */
