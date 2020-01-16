@@ -154,7 +154,7 @@ console.log('/*-----------------------[ Lecture: Passing functions as arguments 
  console.log(ages);
  console.log(fullAges);
  console.log(rates);
-
+console.log('/*-----------------------[ Lecture: Functions returning functions ]-------------------------------------------------*/');
 
 /* Lecture: Functions returning functions (ref:line:224)
 ----------------------------------------------------- */
