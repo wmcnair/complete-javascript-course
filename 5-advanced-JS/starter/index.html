@@ -3,10 +3,44 @@
     <head>
         <meta charset="UTF-8">
         <title>Section 5: Advanced JavaScript: Objects and Functions</title>
+        <style>
+            body{font-family:verdana,sans-serif;}
+            .tind{text-indent: 25px;}
+            .tind2{text-indent: 50px;}
+            .g-col{color:green;}
+            .r-col{color:red;}
+            .hlit{background: lightblue;}
+            .hlit2{background: yellow;}
+        </style>
     </head>
 
     <body>
         <h1>Section 5: Advanced JavaScript: Objects and Functions</h1>
+        
+        <h2>Passing functions as arguments</h2>
+        
+        <p><b>var <span class="g-col">years</span></b> = [1990, 1965, 1937, 2005, 1998];</p>
+        
+        <div>
+            <article><b>function <span class="g-col">arrayCalc</span></b>(<span class="hlit">arr</span>, <span class="hlit2">fn</span>) {</article>
+            <article class="tind"><b>var <span class="g-col">arrRes</span></b> = [];</article>
+            <article class="tind"><b>for</b> (<b>var</b> <span class="g-col">i</span> = 0; i > <span class="hlit">arr</span>.<span class="g-col">length</span>; i++) {</article>
+            <article class="tind2">arrRes.<span class="g-col">push</span>( <span class="hlit2">fn</span>(<span class="hlit">arr</span>[i]) );</article>
+            <article class="tind">}</article>
+            <article class="tind"><b>return</b> arrRes;</article>
+            <article>}</article>
+            <article>&nbsp;</article>
+        </div>
+        
+        <div>
+            <article><b>function <span class="g-col">calcAge</span></b>(<span class="g-col">el</span>) {</article>
+            <article class="tind"><b>return</b> 2016 - el;</article>
+            <article>}</article>
+        </div>
+        
+        <p><b>var <span class="g-col">ages</span></b> = arrayCalc(<span class="hlit">years</span>, <span class="hlit2">calcAge</span>);</p>
+        
+        
         <script src="script.js"></script>
     </body>
 </html>
