@@ -72,7 +72,7 @@ let jane1 = Object.create(personProto,{
 });
 
 /* Difference between "Object.create" and the "Function Constructor": Object.create builds and object that inherits directly from the one that we passed into the first argument, while on the other hand, the Function Constructor the newly created object inherits from the constructor's prototype property */
-console.log('/*-----------------------[ Primitives VS. Objects ]-------------------------------------------------*/');
+console.log('/*----[ Primitives VS. Objects ]-------------------------------------------------*/');
 
 /* Primitives VS. Objects
 ----------------------------------------------------- */
@@ -110,7 +110,7 @@ function change(a,b){
 change(age,obj3);
 console.log(age, obj3.city);
 // Notice the Primitive(age) is unchanged
-console.log('/*-----------------------[ Lecture: Passing functions as arguments ]-------------------------------------------------*/');
+console.log('/*----[ Lecture: Passing functions as arguments ]-------------------------------------------------*/');
 
 /* Lecture: Passing functions as arguments (ref:line:277)
 ----------------------------------------------------- */
@@ -154,7 +154,7 @@ console.log('/*-----------------------[ Lecture: Passing functions as arguments 
  console.log(ages);
  console.log(fullAges);
  console.log(rates);
-console.log('/*-----------------------[ Lecture: Functions returning functions ]-------------------------------------------------*/');
+console.log('/*----[ Lecture: Functions returning functions ]-------------------------------------------------*/');
 
 /* Lecture: Functions returning functions (ref:line:224)
 ----------------------------------------------------- */
@@ -299,31 +299,70 @@ let fullJapan = arrayCalc_Challenge(ages_Challenge,isFullAge_Challenge.bind(this
 console.log(ages_Challenge);
 console.log(fullJapan);
 
-
+console.log('/*----[ Coding Challenge 7: Build a fun quiz game in the console ]-------------------------------------------------*/');
 /*--------------------------------
-Coding Challenge 7: Build a fun quiz game in the console
-1. Build a function constructor called Question to describe a question. A question should include:
- a) question itself
- b) the answers from which the player can choose the correct one (choose an adequate data structure here, array, object, etc.)
- c) correct answer (I would use a number for this)
-2. Create a couple of questions using the constructor
-3. Store them all inside an array
-4. Select one random question and log it on the console, together with the possible answers (each question should have a number) (Hint: write a method for the Question objects for this task).
-5. Use the 'prompt' function to ask the user for the correct answer. The user should input the number of the correct answer such as you displayed it on Task 4.
-6. Check if the answer is correct and print to the console whether the answer is correct or not (Hint: write another method for this).
-7. Suppose this code would be a plugin for other programmers to use in their code. So make sure that all your code is private and doesn't interface with the other programmers code (Hint: we learned a special technique to do exactly that).
---- Expert level ---
-8. After you display the result, display the next random question, so that the game never ends (Hint: write a function for this and call it right after displaying the result)
-9. Be careful: after Task 8, the game literally never ends. So include the option to quit the game if the user writes 'exit' instead of the answer. In this case, DON'T call the function from task 8.
-10. Track the user's score to make the game more fun! So each time an answer is correct, add 1 point to the score (Hint: I'm going to use the power of closures for this, but you don't have to, just do this with the tools you feel more comfortable with at this point).
-11. Display the score in the console. Use yet another method for this.
------------------------------------------------------ */
-const Question = function(){
-    this.question = question;
-    this.user_submit = user_submit;
-    this.answer = answer;
-}
+Coding Challenge 7: Build a fun quiz game in the console 
+Assignment Tasks (1-7), Expert (8-10)
+----------------------------------------------------------- */
 
-/* let question01 = new Question();
-let question02 = new Question();
-let question03 = new Question(); */
+/* 7. Suppose this code would be a plugin for other programmers to use in their code. So make sure that all your code is private and doesn't interface with the other programmers code */
+(function(){
+    /* 1. Build a function constructor called Question to describe a question. A question should include:
+    a) question itself
+    b) the answers from which the player can choose the correct one (choose an adequate data structure here, array, object, etc.)
+    c) correct answer (I would use a number for this) */
+    const Question = function(question, options, answer){
+        this.question = question;
+        this.options = options;
+        this.answer = answer;
+    }
+
+    /* 2. Create a couple of questions using the constructor */
+    let question01 = new Question('Isn\'t JavaScript the coolest?', ['Yes','No'], 0);
+    let question02 = new Question('What is the name of this course\'s teacher?',['John','Micheal','Jonas'], 2);
+    let question03 = new Question('What does best describe coding?',['Boring','Hard','Fun','Tedious'], 2);
+
+    /* 3. Store them all inside an array */
+    const questions = [question01,question02,question03];
+
+    /* 4. Select one random question and log it on the console, together with the possible answers (each question should have a number) (Hint: write a method for the Question objects for this task). */
+    let n = Math.floor(Math.random() * questions.length);
+    // Math.random() = generates random number
+    // Math.floor() = removes decimel values after
+
+    Question.prototype.displayQuestion = function(){ //method
+        console.log(this.question);
+
+        for (var i = 0; i < this.options.length; i++){
+            console.log(`${i}: ${this.options[i]}`);
+        } 
+    }
+    //Display the Questions
+    questions[n].displayQuestion();
+
+    /* 5. Use the 'prompt' function to ask the user for the correct answer. The user should input the number of the correct answer such as you displayed it on Task 4. */
+    let user_submit = parseInt(prompt('Please select the correct answer.'));
+    // parseInt() convert String into Integer
+
+    /* 6. Check if the answer is correct and print to the console whether the answer is correct or not (Hint: write another method for this). */
+    Question.prototype.checkAnswer = function(ans){
+        if (ans === this.answer){
+            console.log('Correct Answer!');
+        } else {
+            console.log('Wrong Answer. Try again!');
+        }
+    }
+    questions[n].checkAnswer(user_submit);
+})();
+
+/*-----------------------------------------------------
+--- Expert level ---
+----------------------------------------------------- */
+
+/* 8. After you display the result, display the next random question, so that the game never ends (Hint: write a function for this and call it right after displaying the result) */
+
+/* 9. Be careful: after Task 8, the game literally never ends. So include the option to quit the game if the user writes 'exit' instead of the answer. In this case, DON'T call the function from task 8. */
+
+/* 10. Track the user's score to make the game more fun! So each time an answer is correct, add 1 point to the score (Hint: I'm going to use the power of closures for this, but you don't have to, just do this with the tools you feel more comfortable with at this point). */
+
+/* 11. Display the score in the console. Use yet another method for this. */
